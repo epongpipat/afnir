@@ -1,6 +1,6 @@
 
 #' @title AFNI 3dWinsor function
-#' @description Wrapper for AFNI \code{3dWinsor} function, 
+#' @description Wrapper for AFNI \code{3dWinsor} function,
 #' which applies a 3D 'Winsorizing' filter.
 #'
 #' @param file nifti object or NIfTI filename.  If more than one is given,
@@ -16,33 +16,32 @@
 #' @param opts Additional options passed to \code{3dWinsor}
 #' @param retimg Should a nifti be returned?
 #' @param ... additional arguments to \code{\link{afni_3dAFNItoNIFTI}}
-#' 
 #'
-#' @return Output filename of the image or a \code{nifti} image, depending 
+#'
+#' @return Output filename of the image or a \code{nifti} image, depending
 #' on \code{retimg}
 #' @export
-afni_3dWinsor = function(
-  file,
-  radius = 1.5,
-  trim = c(0.2, 0.8),
-  repeat_filter = 1,
-  keepzero = FALSE,
-  lower_threshold = NULL, # clip
-  mask = NULL,
-  opts = "",
-  retimg = TRUE,
-  ...) {
-  
-  func = "3dWinsor"
-  
-  ppaste0 = function(..., x) {
+afni_3dWinsor <- function(
+                          file,
+                          radius = 1.5,
+                          trim = c(0.2, 0.8),
+                          repeat_filter = 1,
+                          keepzero = FALSE,
+                          lower_threshold = NULL, # clip
+                          mask = NULL,
+                          opts = "",
+                          retimg = TRUE,
+                          ...) {
+  func <- "3dWinsor"
+
+  ppaste0 <- function(..., x) {
     if (is.null(x)) {
       return("")
     } else {
       return(paste0(..., x))
     }
   }
-  
+
   ##############################
   # Checking Trim
   ##############################
@@ -50,32 +49,32 @@ afni_3dWinsor = function(
   stopifnot(all(trim > 0))
   if (length(trim) == 1) {
     stopifnot(trim <= 0.5)
-    trim = c(trim, 1 - trim)
+    trim <- c(trim, 1 - trim)
   }
-  trim = sort(trim)
+  trim <- sort(trim)
 
-  file = checkimg(file, allow_array = FALSE)
-  suffix = afni_suffix(file, default = "orig")
-  
-  
-  opts = c(opts, ppaste0("-irad ", x = radius))
-  opts = c(opts, paste0("-cbot ", trim[1]))
-  opts = c(opts, paste0("-ctop ", trim[2]))
-  opts = c(opts, ppaste0("-nrep ", x = repeat_filter))
+  file <- checkimg(file, allow_array = FALSE)
+  suffix <- afni_suffix(file, default = "orig")
+
+
+  opts <- c(opts, ppaste0("-irad ", x = radius))
+  opts <- c(opts, paste0("-cbot ", trim[1]))
+  opts <- c(opts, paste0("-ctop ", trim[2]))
+  opts <- c(opts, ppaste0("-nrep ", x = repeat_filter))
   if (!is.null(mask)) {
-    mask = checkimg(mask, allow_array = FALSE)
-    opts = c(opts, paste0("-mask ", mask))
+    mask <- checkimg(mask, allow_array = FALSE)
+    opts <- c(opts, paste0("-mask ", mask))
   }
-  opts = c(opts, ifelse(keepzero, "-keepzero ", ""))
-  opts = c(opts, ppaste0("-clip ", x = lower_threshold))
-  
-  
-  outfile = tempfile()
-  opts = paste0(opts, " -prefix")
-  opts = trimws(opts)
-  opts = opts[ opts != "" ]
-  
-  res = afni_cmd(
+  opts <- c(opts, ifelse(keepzero, "-keepzero ", ""))
+  opts <- c(opts, ppaste0("-clip ", x = lower_threshold))
+
+
+  outfile <- tempfile()
+  opts <- paste0(opts, " -prefix")
+  opts <- trimws(opts)
+  opts <- opts[ opts != "" ]
+
+  res <- afni_cmd(
     file = file,
     func = func,
     opts = opts,
@@ -85,15 +84,17 @@ afni_3dWinsor = function(
     quote_outfile = FALSE,
     retimg = FALSE,
     run = TRUE
-  )  
+  )
   if (res != 0) {
-    warning(paste0("Result does not indicate success ", 
-                   "- function may not work as expected!"))
-  }  
-  outfile = paste0(outfile, suffix, ".BRIK")
-  outfile = afni_3dAFNItoNIFTI(outfile, retimg = retimg, ...)
-  attr(outfile, "afni_version") = afni_version()
-  
+    warning(paste0(
+      "Result does not indicate success ",
+      "- function may not work as expected!"
+    ))
+  }
+  outfile <- paste0(outfile, suffix, ".BRIK")
+  outfile <- afni_3dAFNItoNIFTI(outfile, retimg = retimg, ...)
+  attr(outfile, "afni_version") <- afni_version()
+
   return(outfile)
 }
 
@@ -101,12 +102,12 @@ afni_3dWinsor = function(
 
 #' @rdname afni_3dWinsor
 #' @export
-Winsor = function(...) {
-  afni_3dWinsor(...)  
+Winsor <- function(...) {
+  afni_3dWinsor(...)
 }
 
 #' @rdname afni_3dWinsor
 #' @export
-winsor = function(...) {
-  afni_3dWinsor(...)  
+winsor <- function(...) {
+  afni_3dWinsor(...)
 }

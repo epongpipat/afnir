@@ -14,7 +14,7 @@ resample(...)
 \arguments{
 \item{file}{nifti object or NIfTI filename.}
 
-\item{bound_type}{specify which boundary is preserved, options are 
+\item{bound_type}{specify which boundary is preserved, options are
 "FOV" (default if \code{NULL}) or "SLAB"}
 
 \item{dxyz}{resample to new dimensions for x, y, and z-directions}
@@ -25,11 +25,11 @@ For example LPI makes the x-axis is
 Left-to-Right, the y-axis is Posterior-to-Anterior,
 and the z-axis is Inferior-to-Superior.}
 
-\item{resample_mode}{Resampling method. 
-The options are for 'Nearest Neighbor', 'Linear', 'Cubic' 
+\item{resample_mode}{Resampling method.
+The options are for 'Nearest Neighbor', 'Linear', 'Cubic'
 and 'Blocky' interpolation, respectively.}
 
-\item{master}{a filename of an image, which the input file is aligned to 
+\item{master}{a filename of an image, which the input file is aligned to
 (not doing registration, but takes orientation and pixel dimension information)}
 
 \item{outfile}{Output filename (should not have an extension)}

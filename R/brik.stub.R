@@ -5,14 +5,14 @@
 #' @param bn Take \code{\link{basename}} of file?
 #' @return A character vector with the same length as \code{x}
 #' @export
-brik.stub = function(x, bn = FALSE){
-  nx = names(x)
-  x = path.expand(x)
-  stub = gsub("\\.gz$", "", x)
-  stub = gsub("\\.nii$", "", stub)
-  stub = gsub("\\.(HEAD|head)$", "", stub)
-  stub = gsub("\\.(BRIK|brik)$", "", stub)
-  if (bn) stub = basename(stub)
-  names(stub) = nx
+brik.stub <- function(x, bn = FALSE) {
+  nx <- names(x)
+  x <- path.expand(x)
+  stub <- gsub("\\.gz$", "", x)
+  stub <- gsub("\\.nii$", "", stub)
+  stub <- gsub("\\.(HEAD|head)$", "", stub)
+  stub <- gsub("\\.(BRIK|brik)$", "", stub)
+  if (bn) stub <- basename(stub)
+  names(stub) <- nx
   return(stub)
 }

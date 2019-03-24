@@ -22,5 +22,4 @@ and end of the string
 afni_quote_expression("hey")
 afni_quote_expression("'hey'")
 afni_quote_expression(c("'hey'", "ho", ""))
-
 }

@@ -43,7 +43,7 @@ If \code{retimg} then object of class nifti.  Otherwise,
 the \code{outfile} argument is returned (or a temporary filename)
 }
 \description{
-Performs Volume Registration for Motion Correction on 
-an NIfTI file or \code{nifti} 
+Performs Volume Registration for Motion Correction on
+an NIfTI file or \code{nifti}
 using \code{3dvolreg}
 }

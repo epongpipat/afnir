@@ -19,9 +19,9 @@ NwarpApply(...)
 
 \item{warp}{list of nifti objects or NIfTI filenames of warps to be applied}
 
-\item{fixed}{nifti object or NIfTI filename of the target space, used 
-to determine the output grid/resolution.  If not specified, then it will use 
-that of \code{file}.  You can also specify this as \code{"WARP"} to use the 
+\item{fixed}{nifti object or NIfTI filename of the target space, used
+to determine the output grid/resolution.  If not specified, then it will use
+that of \code{file}.  You can also specify this as \code{"WARP"} to use the
 warps as the destination resolutione/etc.}
 
 \item{interpolator}{interpolation method to use during matching process
@@ -32,7 +32,7 @@ invert it.  If the input warp would take a dataset
 from space A to B, then the inverted warp will do
 the reverse.}
 
-\item{outfile}{Output filename (should not have an extension).  This 
+\item{outfile}{Output filename (should not have an extension).  This
 should be the same length as \code{file}}
 
 \item{retimg}{Should an image be returned (\code{TRUE}) or a filename?}

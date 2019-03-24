@@ -12,39 +12,41 @@
 #'
 #' @return Output filename of the brik
 #' @export
-afni_3dcalc = function(
-  file,
-  expression,
-  outfile = NULL,
-  retimg = TRUE,
-  opts = "",
-  ...) {
-  func = "3dcalc"
-  
-  expression = afni_quote_expression(expression)
-  opts = paste(opts, collapse = " ")
-  opts = paste0("-expr ", expression, " ", opts)
-  opts = trimws(opts)
-  
-  file = checkimg(file, allow_array = FALSE)
-  suffix = afni_suffix(file[1], default = "orig")
-  
-  names(file) = letters[seq(length(file))]
-  file = paste0("-", names(file), " ", file)
-  file = paste(file, collapse = " ")
+afni_3dcalc <- function(
+                        file,
+                        expression,
+                        outfile = NULL,
+                        retimg = TRUE,
+                        opts = "",
+                        ...) {
+  func <- "3dcalc"
+
+  expression <- afni_quote_expression(expression)
+  opts <- paste(opts, collapse = " ")
+  opts <- paste0("-expr ", expression, " ", opts)
+  opts <- trimws(opts)
+
+  file <- checkimg(file, allow_array = FALSE)
+  suffix <- afni_suffix(file[1], default = "orig")
+
+  names(file) <- letters[seq(length(file))]
+  file <- paste0("-", names(file), " ", file)
+  file <- paste(file, collapse = " ")
 
   if (is.null(outfile)) {
-    outfile = tempfile(fileext = ".nii.gz")
+    outfile <- tempfile(fileext = ".nii.gz")
   }
-  out_ext = parse_img_ext(outfile)
-  
-  opts = paste0(opts, " -prefix")
+  out_ext <- parse_img_ext(outfile)
 
-    
-  msg = paste0("Dataset name conflicts with existing file,", 
-               " delete if overwriting")
+  opts <- paste0(opts, " -prefix")
+
+
+  msg <- paste0(
+    "Dataset name conflicts with existing file,",
+    " delete if overwriting"
+  )
   if (is.na(out_ext)) {
-    brik_outfile = paste0(outfile, suffix, ".BRIK")
+    brik_outfile <- paste0(outfile, suffix, ".BRIK")
     if (file.exists(brik_outfile)) {
       stop(msg)
     }
@@ -54,7 +56,7 @@ afni_3dcalc = function(
     }
   }
 
-  res = afni_cmd(
+  res <- afni_cmd(
     file = file,
     func = func,
     opts = opts,
@@ -64,18 +66,19 @@ afni_3dcalc = function(
     quote_outfile = FALSE,
     retimg = FALSE,
     quote_file = FALSE
-  )  
+  )
   if (res != 0) {
-    warning(paste0("Result does not indicate success ", 
-                   "- function may not work as expected!"))
+    warning(paste0(
+      "Result does not indicate success ",
+      "- function may not work as expected!"
+    ))
   }
   if (is.na(out_ext)) {
-    brik_outfile = paste0(outfile, suffix, ".BRIK")
-    outfile = paste0(outfile, suffix, ".BRIK")
-    outfile = afni_3dAFNItoNIFTI(outfile, retimg = retimg, ...)
+    brik_outfile <- paste0(outfile, suffix, ".BRIK")
+    outfile <- paste0(outfile, suffix, ".BRIK")
+    outfile <- afni_3dAFNItoNIFTI(outfile, retimg = retimg, ...)
   }
-  attr(outfile, "afni_version") = afni_version()
-  
+  attr(outfile, "afni_version") <- afni_version()
+
   return(outfile)
 }
-  

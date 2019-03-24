@@ -16,10 +16,10 @@ afni_3dFourier(file, lowpass = NULL, highpass = NULL, ignore = NULL,
 
 \item{ignore}{ignore the first \code{n} images}
 
-\item{retrend}{Any mean and linear trend are removed 
+\item{retrend}{Any mean and linear trend are removed
 before filtering. This will restore the trend after filtering.}
 
-\item{retimg}{Should an image be returned (\code{TRUE}) 
+\item{retimg}{Should an image be returned (\code{TRUE})
 or a filename?}
 
 \item{opts}{Additional options passed to \code{3dFourier}}

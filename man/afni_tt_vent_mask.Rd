@@ -20,7 +20,7 @@ Example of making a ventricle mask, to be used if Freesurfer
 is not available or needed before using afni_proc.py
 }
 \note{
-See 
+See
 \url{https://afni.nimh.nih.gov/pub/dist/doc/program_help/afni_proc.py.html}
 for example.  This code uses \code{TT_desai_dd_mpm+tlrc}
 }

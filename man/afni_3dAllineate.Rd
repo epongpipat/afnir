@@ -19,8 +19,8 @@ allineate(...)
 
 \item{fixed}{nifti object or NIfTI filename of fixed image, target of registration}
 
-\item{cost}{cost function that defines the matching 
-between the file and the fixed image 
+\item{cost}{cost function that defines the matching
+between the file and the fixed image
 ls= Least Squares [Pearson Correlation]
 
 mi  = Mutual Information [H(b)+H(s)-H(b,s)]
@@ -41,7 +41,7 @@ NN - nearest neighbor.}
 \item{final_interpolator}{interpolation used to create the
 output dataset. \code{wsinc5} - weighted sinc interpolation method}
 
-\item{typeOfTransform}{transformation to use for registration 
+\item{typeOfTransform}{transformation to use for registration
 shift_only - 3 parameters
 
 shift_rotate - 6 parameters

@@ -19,7 +19,7 @@ afni_to_nifti(...)
 
 \item{opts}{Additional options to pass to \code{3dAFNItoNIFTI}}
 
-\item{float}{Should the \code{-float} option be called in 
+\item{float}{Should the \code{-float} option be called in
 \code{3dAFNItoNIFTI}}
 
 \item{retimg}{Should an image be returned?}
@@ -31,6 +31,6 @@ If \code{retimg} then object of class nifti.  Otherwise,
 the \code{outfile} argument is returned (or a temporary filename)
 }
 \description{
-Converts an AFNI file to an NIfTI file or \code{nifti} 
+Converts an AFNI file to an NIfTI file or \code{nifti}
 using \code{3dAFNItoNIFTI}
 }

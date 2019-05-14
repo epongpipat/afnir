@@ -6,8 +6,7 @@
 #' @export
 #' @examples
 #' have_afni()
-have_afni = function(...){
-  x = suppressWarnings(try(get_afni(...), silent = TRUE))
+have_afni <- function(...) {
+  x <- suppressWarnings(try(get_afni(...), silent = TRUE))
   return(!inherits(x, "try-error"))
 }
-

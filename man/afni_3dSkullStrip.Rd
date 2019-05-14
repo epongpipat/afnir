@@ -20,7 +20,7 @@ they are given names of the letters up to \code{z}.}
 \item{...}{additional arguments to \code{\link{afni_3dAFNItoNIFTI}}}
 }
 \value{
-Output filename of the image or a \code{nifti} image, depending 
+Output filename of the image or a \code{nifti} image, depending
 on \code{retimg}
 }
 \description{

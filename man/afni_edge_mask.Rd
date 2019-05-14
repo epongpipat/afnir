@@ -15,7 +15,7 @@ afni_edge_mask(file, ...)
 Output filename or nifti object (default)
 }
 \description{
-Compute the edge voxels of a mask dataset.  An edge voxel is one    
-that shares some face with a non-masked voxel.  This computation    
+Compute the edge voxels of a mask dataset.  An edge voxel is one
+that shares some face with a non-masked voxel.  This computation
 assumes file is a binary mas
 }

@@ -30,23 +30,23 @@ Passed to \code{\link{readnii}}.}
 
 \item{samefile}{(logical) is the output the same file?}
 
-\item{opts_after_outfile}{(logical) should \code{opts} come after 
+\item{opts_after_outfile}{(logical) should \code{opts} come after
 the \code{outfile} in the AFNI command?}
 
 \item{frontopts}{(character) options/character to put in before filename}
 
-\item{add_ext}{(logical) should the extension be added to 
+\item{add_ext}{(logical) should the extension be added to
 the \code{outfile}}
 
 \item{bin_app}{(character) appendix to add to \code{\link{get_afni}}}
 
-\item{quote_file}{should the filename be quoted in double 
+\item{quote_file}{should the filename be quoted in double
 quotes?}
 
-\item{quote_outfile}{should the output filename be quoted in double 
+\item{quote_outfile}{should the output filename be quoted in double
 quotes?}
 
-\item{run}{(logical) Should the command be run?  If this is false, 
+\item{run}{(logical) Should the command be run?  If this is false,
 nothing is done}
 
 \item{...}{additional arguments passed to \code{\link{system}}.}

@@ -13,7 +13,7 @@ afnidir()
 Character path
 }
 \description{
-Finds the AFNIDIR from system environment or 
+Finds the AFNIDIR from system environment or
 \code{getOption("afni.path")}
 for location of AFNI functions and returns it
 }

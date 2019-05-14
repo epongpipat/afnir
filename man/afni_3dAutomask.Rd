@@ -18,15 +18,15 @@ automask(...)
 \item{file}{nifti object or NIfTI filename.  If more than one is given,
 they are given names of the letters up to \code{z}.}
 
-\item{mfrac}{The 'clip level fraction', which 
-must be a number between 0.1 and 0.9, which is passed to 
+\item{mfrac}{The 'clip level fraction', which
+must be a number between 0.1 and 0.9, which is passed to
 \code{\link{afni_3dClipLevel}}}
 
 \item{gradual_clipping}{The program uses a 'gradual' clip level by default,
 To use a fixed clip level, set \code{gradual_clipping = FALSE}.}
 
 \item{n_peels}{Peel the mask \code{n_peels} times, then unpeel.  Designed
-to clip off protuberances less than 2*\code{n_peels} voxels 
+to clip off protuberances less than 2*\code{n_peels} voxels
 thick.}
 
 \item{n_neighbors}{Define the number of neighbors needed for a voxel

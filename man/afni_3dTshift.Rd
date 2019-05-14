@@ -25,7 +25,7 @@ alt-z2            = alternating, starting at slice #nz-2 instead of #nz-1
 seq+z = seqplus   = sequential in the plus direction
 seq-z = seqminus  = sequential in the minus direction}
 
-\item{tzero}{time offset to align each slice to 
+\item{tzero}{time offset to align each slice to
 (The default alignment time is the average of the 'tpattern' values)}
 
 \item{slice}{slice number indicating the time offset to align each slice to.
@@ -44,6 +44,6 @@ If \code{retimg} then object of class nifti.  Otherwise,
 the \code{outfile} argument is returned (or a temporary filename)
 }
 \description{
-Converts an AFNI file to an NIfTI file or \code{nifti} 
+Converts an AFNI file to an NIfTI file or \code{nifti}
 using \code{3dTshift}
 }

@@ -20,10 +20,10 @@ despike(...)
 \item{curve_order}{the curve fit order}
 
 \item{cut_values}{a length 2 vector with the first being
-the threshold value of sigma for a spike and the second being 
+the threshold value of sigma for a spike and the second being
 the upper range of the allowed deviation from the curve:}
 
-\item{mask}{should a mask of high-intensity voxels be used (\code{TRUE}) or 
+\item{mask}{should a mask of high-intensity voxels be used (\code{TRUE}) or
 all voxels (\code{FALSE})}
 
 \item{dilate}{dilation factor of the mask}
@@ -35,7 +35,7 @@ nearest non-spike (|s| < c2) values; the first
 one previous and the first one after.
 Note that the first cut value is not used here.}
 
-\item{method}{should the NEW or OLD method be used for the L1 fit.  NEW is 
+\item{method}{should the NEW or OLD method be used for the L1 fit.  NEW is
 faster}
 
 \item{opts}{Additional options to pass to \code{3dDespike}}
@@ -49,6 +49,6 @@ If \code{retimg} then object of class nifti.  Otherwise,
 the \code{outfile} argument is returned (or a temporary filename)
 }
 \description{
-Converts an AFNI file to an NIfTI file or \code{nifti} 
+Converts an AFNI file to an NIfTI file or \code{nifti}
 using \code{3dDespike}
 }

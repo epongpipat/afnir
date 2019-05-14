@@ -3,38 +3,37 @@
 #'
 #' @param file1 nifti object or NIfTI filename for overlap
 #' @param file2 nifti object or NIfTI filename for overlap
-#' @param automask if \code{TRUE}, \code{automask} is run on the files.  
-#' If \code{FALSE}, consider input datasets as masks 
+#' @param automask if \code{TRUE}, \code{automask} is run on the files.
+#' If \code{FALSE}, consider input datasets as masks
 #' (automask does not work on mask datasets)
 #' @param ... not used
-#' 
+#'
 #' @return Output filename of the brik
 #' @export
-afni_3dABoverlap = function(
-  file1, #source
-  file2,
-  automask = TRUE) {
-  
-  func = "3dABoverlap"
-  cmd = get_afni()
+afni_3dABoverlap <- function(
+                             file1, # source
+                             file2,
+                             automask = TRUE) {
+  func <- "3dABoverlap"
+  cmd <- get_afni()
   cmd <- paste0(cmd, func)
-  
-  
-  file1 = checkimg(file1, allow_array = FALSE)
-  file2 = checkimg(file2, allow_array = FALSE)
-  
-  opts = ""
+
+
+  file1 <- checkimg(file1, allow_array = FALSE)
+  file2 <- checkimg(file2, allow_array = FALSE)
+
+  opts <- ""
   if (!automask) {
-    opts = c(opts, "-no_automask")
+    opts <- c(opts, "-no_automask")
   }
 
-  opts = trimws(opts)
-  opts = opts[ opts != "" ]
-  
-  opts = paste(opts, collapse = " ")
+  opts <- trimws(opts)
+  opts <- opts[ opts != "" ]
 
-  cmd = paste(cmd, opts, file1, file1)
-  res = system(cmd, intern = TRUE)
+  opts <- paste(opts, collapse = " ")
+
+  cmd <- paste(cmd, opts, file1, file1)
+  res <- system(cmd, intern = TRUE)
   # res = res[seq(2, length(res))]
   return(res)
 }
@@ -42,12 +41,12 @@ afni_3dABoverlap = function(
 
 #' @rdname afni_3dABoverlap
 #' @export
-ABoverlap = function(...) {
-  afni_3dABoverlap(...)  
+ABoverlap <- function(...) {
+  afni_3dABoverlap(...)
 }
 
 #' @rdname afni_3dABoverlap
 #' @export
-aboverlap = function(...) {
-  afni_3dABoverlap(...)  
+aboverlap <- function(...) {
+  afni_3dABoverlap(...)
 }

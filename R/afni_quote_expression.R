@@ -7,28 +7,27 @@
 #'
 #' @return A character string
 #' @export
-#' 
+#'
 #' @examples
 #' afni_quote_expression("hey")
 #' afni_quote_expression("'hey'")
 #' afni_quote_expression(c("'hey'", "ho", ""))
-#' 
-afni_quote_expression = function(x, trim = TRUE) {
+afni_quote_expression <- function(x, trim = TRUE) {
   if (trim) {
-    x = trimws(x)
+    x <- trimws(x)
   }
-  x = strsplit(x, split = "")
-  x = sapply(x, function(r){
+  x <- strsplit(x, split = "")
+  x <- sapply(x, function(r) {
     if (length(r) > 0) {
       if (r[1] != "'") {
-        r = c("'", r)
+        r <- c("'", r)
       }
       if (r[length(r)] != "'") {
-        r = c(r, "'")
-      }  
-      r = paste(r, collapse = "")
+        r <- c(r, "'")
+      }
+      r <- paste(r, collapse = "")
     } else {
-      r = ""
+      r <- ""
     }
     return(r)
   })

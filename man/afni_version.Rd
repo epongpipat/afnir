@@ -17,6 +17,6 @@ Finds the AFNI version from \code{anfni -ver}
 }
 \examples{
 if (have_afni()) {
- afni_version()
+  afni_version()
 }
 }

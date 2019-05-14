@@ -20,7 +20,7 @@ they are given names of the letters up to \code{z}.}
 \item{...}{not used}
 }
 \value{
-Single character string of a nubmer 
+Single character string of a nubmer
 (by default), unless \code{opts = "-doall"}
 }
 \description{

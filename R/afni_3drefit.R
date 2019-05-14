@@ -8,28 +8,27 @@
 #' @return Output filename of the image
 #' @importFrom neurobase parse_img_ext
 #' @export
-afni_3drefit = function(
-  file,
-  opts = "",
-  ...) {
-  
-  func = "3drefit"
-  file = checkimg(file, allow_array = FALSE)
-  
+afni_3drefit <- function(
+                         file,
+                         opts = "",
+                         ...) {
+  func <- "3drefit"
+  file <- checkimg(file, allow_array = FALSE)
+
   #############################################
   # Making all the options
-  #############################################  
-  opts = trimws(opts)
-  opts = opts[ opts != "" ]
-  opts = paste(opts, collapse = " ")
-  
-  img_ext = neurobase::parse_img_ext(file)
-  ext = tools::file_ext(file)
-  img_ext = paste0(img_ext, ifelse(ext %in% "gz", ".gz", ""))
-  outfile = tempfile(fileext = paste0(".", img_ext))
+  #############################################
+  opts <- trimws(opts)
+  opts <- opts[ opts != "" ]
+  opts <- paste(opts, collapse = " ")
+
+  img_ext <- neurobase::parse_img_ext(file)
+  ext <- tools::file_ext(file)
+  img_ext <- paste0(img_ext, ifelse(ext %in% "gz", ".gz", ""))
+  outfile <- tempfile(fileext = paste0(".", img_ext))
   file.copy(file, outfile)
 
-  res = afni_cmd(
+  res <- afni_cmd(
     file = outfile,
     func = func,
     opts = "",
@@ -40,19 +39,21 @@ afni_3drefit = function(
     quote_outfile = FALSE,
     # run = FALSE,
     retimg = FALSE
-  )  
+  )
   if (res != 0) {
-    warning(paste0("Result does not indicate success ",
-                   "- function may not work as expected!"))
+    warning(paste0(
+      "Result does not indicate success ",
+      "- function may not work as expected!"
+    ))
   }
   # outfile = paste0(outfile, suffix, ".BRIK")
   # outfile = afni_3dAFNItoNIFTI(outfile, retimg = retimg, ...)
-  attr(outfile, "afni_version") = afni_version()
+  attr(outfile, "afni_version") <- afni_version()
   return(outfile)
 }
 
 #' @rdname afni_3drefit
 #' @export
-refit = function(...) {
-  afni_3drefit(...)  
+refit <- function(...) {
+  afni_3drefit(...)
 }

@@ -18,7 +18,7 @@ aboverlap(...)
 \item{file2}{nifti object or NIfTI filename for overlap}
 
 \item{automask}{if \code{TRUE}, \code{automask} is run on the files.
-If \code{FALSE}, consider input datasets as masks 
+If \code{FALSE}, consider input datasets as masks
 (automask does not work on mask datasets)}
 
 \item{...}{not used}

@@ -10,15 +10,15 @@ afni_subset_4d(file, time_start = 0, time_end = "$", by = 1,
 \arguments{
 \item{file}{4-dimensional Filename or nifti object to subset}
 
-\item{time_start}{the time point to subset from. 
+\item{time_start}{the time point to subset from.
 Remember timepoint numbering starts from 0}
 
 \item{time_end}{the last time point to subset}
 
-\item{by}{How should the subsetting be done.  If you want to 
+\item{by}{How should the subsetting be done.  If you want to
 subset every second time point, use by = 2 for example}
 
-\item{retimg}{Should an image be returned (\code{TRUE}) 
+\item{retimg}{Should an image be returned (\code{TRUE})
 or a filename?}
 }
 \value{
@@ -31,10 +31,10 @@ Subset 4D images
 \examples{
 library(kirby21.fmri)
 if (have_afni()) {
-tdir = tempfile()
-res = download_fmri_data(outdir = tdir)
-file = kirby21.fmri::get_fmri_filenames(outdir = tdir)[1]
-sub_file = afni_subset_4d(file, time_start = 0, time_end = 1)
-dim(neurobase::readnii(sub_file))[4] == 2
+  tdir <- tempfile()
+  res <- download_fmri_data(outdir = tdir)
+  file <- kirby21.fmri::get_fmri_filenames(outdir = tdir)[1]
+  sub_file <- afni_subset_4d(file, time_start = 0, time_end = 1)
+  dim(neurobase::readnii(sub_file))[4] == 2
 }
 }

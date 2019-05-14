@@ -39,10 +39,10 @@ less than abs(n) voxels change}
 \item{...}{additional arguments to \code{\link{afni_3dAFNItoNIFTI}}}
 }
 \value{
-Output filename of the image or a \code{nifti} image, depending 
+Output filename of the image or a \code{nifti} image, depending
 on \code{retimg}
 }
 \description{
-Wrapper for AFNI \code{3dWinsor} function, 
+Wrapper for AFNI \code{3dWinsor} function,
 which applies a 3D 'Winsorizing' filter.
 }

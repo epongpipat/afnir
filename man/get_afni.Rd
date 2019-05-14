@@ -7,7 +7,7 @@
 get_afni(fallback = TRUE)
 }
 \arguments{
-\item{fallback}{(logical) should \code{DYLD_FALLBACK_LIBRARY_PATH} be exported 
+\item{fallback}{(logical) should \code{DYLD_FALLBACK_LIBRARY_PATH} be exported
 so that libs work?}
 }
 \value{

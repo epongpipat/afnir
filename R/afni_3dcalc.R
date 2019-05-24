@@ -12,73 +12,54 @@
 #'
 #' @return Output filename of the brik
 #' @export
-afni_3dcalc <- function(
-                        file,
-                        expression,
-                        outfile = NULL,
-                        retimg = TRUE,
-                        opts = "",
-                        ...) {
-  func <- "3dcalc"
-
-  expression <- afni_quote_expression(expression)
-  opts <- paste(opts, collapse = " ")
-  opts <- paste0("-expr ", expression, " ", opts)
-  opts <- trimws(opts)
-
-  file <- checkimg(file, allow_array = FALSE)
-  suffix <- afni_suffix(file[1], default = "orig")
-
-  names(file) <- letters[seq(length(file))]
-  file <- paste0("-", names(file), " ", file)
-  file <- paste(file, collapse = " ")
-
-  if (is.null(outfile)) {
-    outfile <- tempfile(fileext = ".nii.gz")
+afni_3dcalc <- function(in_files, expression, out_file, extra_options = NULL) {
+  # initialize list -----
+  afni_list <- list(path = afnir::get_afni(),
+                    program = "3dcalc",
+                    options = NULL)
+  
+  # append options -----
+  # set in_files
+  for (i in 1:length(in_files)){
+    afni_list[["options"]][[letters[i]]] <- in_files[i]
   }
-  out_ext <- parse_img_ext(outfile)
-
-  opts <- paste0(opts, " -prefix")
-
-
-  msg <- paste0(
-    "Dataset name conflicts with existing file,",
-    " delete if overwriting"
-  )
-  if (is.na(out_ext)) {
-    brik_outfile <- paste0(outfile, suffix, ".BRIK")
-    if (file.exists(brik_outfile)) {
-      stop(msg)
-    }
-  } else {
-    if (file.exists(outfile)) {
-      stop(msg)
+  
+  # set expression
+  afni_list[["options"]][["expr"]] <- paste0("'", expression, "'")
+  
+  # set extra options
+  if (!is.null(extra_options)) {
+    afni_list[["options"]][["extra_options"]] <- extra_options
+  }
+  
+  # set out_file
+  afni_list[["options"]][["prefix"]] <- out_file
+  
+  # write out command -----
+  # using for loop
+  # if then for exceptions
+  options_list = names(afni_list$options)
+  afni_command <- paste0(afni_list$program, " \\\n")
+  for (option in options_list) {
+    if (option == "prefix") {
+      afni_command <- paste0(afni_command, "-", option, " ", afni_list[['options']][["prefix"]])
+    } else if (option == "extra_options") {
+      afni_command <- paste0(afni_command, afni_list[['options']][["extra_options"]], " \\\n")
+    } else {
+      afni_command <- paste0(afni_command, "-", option, " ", afni_list[['options']][[option]], " \\\n")
     }
   }
-
-  res <- afni_cmd(
-    file = file,
-    func = func,
-    opts = opts,
-    outfile = outfile,
-    samefile = FALSE,
-    add_ext = FALSE,
-    quote_outfile = FALSE,
-    retimg = FALSE,
-    quote_file = FALSE
-  )
-  if (res != 0) {
-    warning(paste0(
-      "Result does not indicate success ",
-      "- function may not work as expected!"
-    ))
-  }
-  if (is.na(out_ext)) {
-    brik_outfile <- paste0(outfile, suffix, ".BRIK")
-    outfile <- paste0(outfile, suffix, ".BRIK")
-    outfile <- afni_3dAFNItoNIFTI(outfile, retimg = retimg, ...)
-  }
-  attr(outfile, "afni_version") <- afni_version()
-
-  return(outfile)
+  
+  afni_list[["command"]] <-  paste0(afni_list$path, afni_command)
+  afni_list <<- afni_list
+  
+  cat(paste0("Command:\n", afni_command))
+  
+  # combine afni path and command
+  afni_command <- paste0(afni_list$command)
+  
+  # run in command-line
+  cat("\n\nRunning:\n")
+  system(afni_command)
+  
 }

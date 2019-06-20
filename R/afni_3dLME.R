@@ -26,7 +26,7 @@
 #' afni_3dLME(in_data_table = in_data_table, in_glf_table = in_glf_table, out_file = "output.nii.gz", model = "cond*RT+age", quant_vars = "RT,age", rand_eff = "~1+RT")
 #'
 #' @export
-afni_3dLME <- function(in_data_table, in_glt_table = NULL, in_glf_table = NULL, out_file, model, rand_eff = NULL, quant_vars = NULL, cor_str = "AR1", ss_type = 3, jobs = "all", extra_options = NULL, run_cmd = TRUE, save_data_table_path = NULL) {
+afni_3dLME <- function(in_data_table, in_glt_table = NULL, in_glf_table = NULL, out_file, model, rand_eff = NULL, quant_vars = NULL, cor_str = "AR1", ss_type = 3, jobs = "all", extra_options = NULL, run_cmd = TRUE) {
 
   # load packages -----
   packages <- c("tidyverse", "glue", "nlme", "afnir", "lme4", "phia", "snow")
@@ -91,7 +91,11 @@ afni_3dLME <- function(in_data_table, in_glt_table = NULL, in_glf_table = NULL, 
 
   # data table
   if (!is.null(in_data_table)) {
-    afni_list[["options"]][["dataTable"]] <- list(in_data_table)
+    if (typeof(in_data_table) == "character") {
+      afni_list[["options"]][["dataTable"]] <- in_data_table
+    } else {
+      afni_list[["options"]][["dataTable"]] <- list(in_data_table)
+    }
   }
 
   if (!is.null(save_data_table_path)) {
@@ -117,8 +121,8 @@ afni_3dLME <- function(in_data_table, in_glt_table = NULL, in_glf_table = NULL, 
       afni_in_glf_table <- paste0("-num_glf ", nrow(in_glf_table), " \\\n", afni_in_glf_table, " \\\n")
       afni_command <- paste0(afni_command, afni_in_glf_table)
     } else if (option == "dataTable") {
-      if (!is.null(save_data_table_path)) {
-        afni_in_data_table <- paste0("-dataTable @", save_data_table_path)
+      if (type_of(in_data_table) == "character") {
+        afni_in_data_table <- paste0("-dataTable @", in_data_table)
       } else {
         afni_in_data_table <- unite(afni_list[["options"]][["dataTable"]][[1]], "afni_data_table", colnames(afni_list[["options"]][["dataTable"]][[1]]), sep = "\t")
         afni_in_data_table <- paste0(afni_in_data_table$afni_data_table, collapse = " \\\n")
@@ -140,7 +144,7 @@ afni_3dLME <- function(in_data_table, in_glt_table = NULL, in_glf_table = NULL, 
   # combine afni path and command
   afni_command <- paste0(afni_list$command)
   
-  if (run != TRUE) {
+  if (run_cmd != TRUE) {
     # run in command-line
     cat("\n\nRunning:\n")
     system(afni_command)

@@ -26,7 +26,7 @@
 #' afni_3dLME(in_data_table = in_data_table, in_glf_table = in_glf_table, out_file = "output.nii.gz", model = "cond*RT+age", quant_vars = "RT,age", rand_eff = "~1+RT")
 #'
 #' @export
-afni_3dLME <- function(in_data_table, in_glt_table = NULL, in_glf_table = NULL, out_file, model, rand_eff = NULL, quant_vars = NULL, cor_str = "AR1", ss_type = 3, jobs = "all", extra_options = NULL) {
+afni_3dLME <- function(in_data_table, in_glt_table = NULL, in_glf_table = NULL, out_file, model, rand_eff = NULL, quant_vars = NULL, cor_str = "AR1", ss_type = 3, jobs = "all", extra_options = NULL, run_cmd = TRUE, save_data_table_path = NULL) {
 
   # load packages -----
   packages <- c("tidyverse", "glue", "nlme", "afnir", "lme4", "phia", "snow")
@@ -94,6 +94,10 @@ afni_3dLME <- function(in_data_table, in_glt_table = NULL, in_glf_table = NULL, 
     afni_list[["options"]][["dataTable"]] <- list(in_data_table)
   }
 
+  if (!is.null(save_data_table_path)) {
+    afni_list[["options"]][["dataTablePath"]] <- save_data_table_path
+  }
+  
   # write out command -----
   # using for loop
   # if then for exceptions
@@ -113,9 +117,13 @@ afni_3dLME <- function(in_data_table, in_glt_table = NULL, in_glf_table = NULL, 
       afni_in_glf_table <- paste0("-num_glf ", nrow(in_glf_table), " \\\n", afni_in_glf_table, " \\\n")
       afni_command <- paste0(afni_command, afni_in_glf_table)
     } else if (option == "dataTable") {
-      afni_in_data_table <- unite(afni_list[["options"]][["dataTable"]][[1]], "afni_data_table", colnames(afni_list[["options"]][["dataTable"]][[1]]), sep = "\t")
-      afni_in_data_table <- paste0(afni_in_data_table$afni_data_table, collapse = " \\\n")
-      afni_in_data_table <- paste0(c("-dataTable", paste0(colnames(in_data_table), collapse = "\t"), afni_in_data_table), collapse = " \\\n")
+      if (!is.null(save_data_table_path)) {
+        afni_in_data_table <- paste0("-dataTable @", save_data_table_path)
+      } else {
+        afni_in_data_table <- unite(afni_list[["options"]][["dataTable"]][[1]], "afni_data_table", colnames(afni_list[["options"]][["dataTable"]][[1]]), sep = "\t")
+        afni_in_data_table <- paste0(afni_in_data_table$afni_data_table, collapse = " \\\n")
+        afni_in_data_table <- paste0(c("-dataTable", paste0(colnames(in_data_table), collapse = "\t"), afni_in_data_table), collapse = " \\\n")
+      }
       afni_command <- paste0(afni_command, afni_in_data_table)
     } else if (option == "extra") {
       afni_command <- paste0(afni_command, extra_options, " \\\n")
@@ -123,7 +131,7 @@ afni_3dLME <- function(in_data_table, in_glt_table = NULL, in_glf_table = NULL, 
       afni_command <- paste0(afni_command, "-", option, " ", afni_list[['options']][[option]], " \\\n")
     }
   }
-
+  
   afni_list[["command"]] <-  paste0(afni_list$path, afni_command)
   afni_list <<- afni_list
 
@@ -131,9 +139,12 @@ afni_3dLME <- function(in_data_table, in_glt_table = NULL, in_glf_table = NULL, 
 
   # combine afni path and command
   afni_command <- paste0(afni_list$command)
-
-  # run in command-line
-  cat("\n\nRunning:\n")
-  system(afni_command)
+  
+  if (run != TRUE) {
+    # run in command-line
+    cat("\n\nRunning:\n")
+    system(afni_command)
+  }
+  
 
 }

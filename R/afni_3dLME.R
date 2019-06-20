@@ -117,8 +117,8 @@ afni_3dLME <- function(in_data_table, in_glt_table = NULL, in_glf_table = NULL, 
       afni_in_glf_table <- paste0("-num_glf ", nrow(in_glf_table), " \\\n", afni_in_glf_table, " \\\n")
       afni_command <- paste0(afni_command, afni_in_glf_table)
     } else if (option == "dataTable") {
-      if (type_of(in_data_table) == "character") {
-        afni_in_data_table <- paste0("-dataTable @", in_data_table)
+      if (typeof(in_data_table) == "character") {
+        afni_in_data_table <- paste0("-dataTable @", afni_list[['options']][[option]])
       } else {
         afni_in_data_table <- unite(afni_list[["options"]][["dataTable"]][[1]], "afni_data_table", colnames(afni_list[["options"]][["dataTable"]][[1]]), sep = "\t")
         afni_in_data_table <- paste0(afni_in_data_table$afni_data_table, collapse = " \\\n")

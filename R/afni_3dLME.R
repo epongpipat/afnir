@@ -140,9 +140,9 @@ afni_3dLME <- function(in_data_table, in_glt_table = NULL, in_glf_table = NULL, 
   # combine afni path and command
   afni_command <- paste0(afni_list$command)
   
-  if (run_cmd != TRUE) {
+  if (run_cmd == TRUE) {
     # run in command-line
-    cat("\n\nRunning:\n")
+    cat("\n\nRunning Command:\n")
     system(afni_command)
   }
   

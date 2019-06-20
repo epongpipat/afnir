@@ -97,10 +97,6 @@ afni_3dLME <- function(in_data_table, in_glt_table = NULL, in_glf_table = NULL, 
       afni_list[["options"]][["dataTable"]] <- list(in_data_table)
     }
   }
-
-  if (!is.null(save_data_table_path)) {
-    afni_list[["options"]][["dataTablePath"]] <- save_data_table_path
-  }
   
   # write out command -----
   # using for loop

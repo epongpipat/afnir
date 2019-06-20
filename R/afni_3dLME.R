@@ -26,7 +26,7 @@
 #' afni_3dLME(in_data_table = in_data_table, in_glf_table = in_glf_table, out_file = "output.nii.gz", model = "cond*RT+age", quant_vars = "RT,age", rand_eff = "~1+RT")
 #'
 #' @export
-afni_3dLME <- function(in_data_table, in_glt_table = NULL, in_glf_table = NULL, out_file, model, rand_eff = NULL, quant_vars = NULL, cor_str = "AR1", ss_type = 3, jobs = "all", extra_options = NULL, run_cmd = TRUE) {
+afni_3dLME <- function(in_data_table, in_glt_table = NULL, in_glf_table = NULL, out_file, model, rand_eff = NULL, quant_vars = NULL, ss_type = 3, jobs = "all", extra_options = NULL, run_cmd = TRUE) {
 
   # load packages -----
   packages <- c("tidyverse", "glue", "nlme", "afnir", "lme4", "phia", "snow")
@@ -61,11 +61,6 @@ afni_3dLME <- function(in_data_table, in_glt_table = NULL, in_glf_table = NULL, 
   # set rand effects
   if (!is.null(rand_eff)) {
     afni_list[["options"]][["ranEff"]] <- paste0('"', rand_eff, '"')
-  }
-
-  # set autocorrelation
-  if (!is.null(cor_str)) {
-    afni_list[["options"]][["corStr"]] <- paste0("order : ", cor_str)
   }
 
   # ss type
